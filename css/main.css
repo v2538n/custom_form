@@ -69,6 +69,11 @@ html, body {
 	box-shadow: 0 0 15px #7a956b;
 }
 
+
+.form__input._error {
+	box-shadow: 0 0 15px red;
+}
+
 textarea.form__input {
 	min-height: 120px;
 	padding: 20px;
@@ -165,6 +170,11 @@ textarea.form__input {
 
 .checkbox {
 }
+
+.checkbox._error .checkbox__label::before {
+	box-shadow: 0px 0px 15px red;
+}
+
 .checkbox__input {
 	display: none;
 }

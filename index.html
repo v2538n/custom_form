@@ -14,12 +14,12 @@
 
 				<div class="form__item">
 					<label for="formName" class="form__label">Имя*:</label>
-					<input id="formName" type="text" name="name" autocomplete="off" class="form__input">
+					<input id="formName" type="text" name="name" autocomplete="off" class="form__input _req _name">
 				</div>
 
 				<div class="form__item">
 					<label for="formEmail" class="form__label">E-mail*:</label>
-					<input id="formEmail" type="text" name="email" autocomplete="off" class="form__input">
+					<input id="formEmail" type="text" name="email" autocomplete="off" class="form__input _req _email">
 				</div>
 
 				<div class="form__item">
@@ -60,13 +60,13 @@
 							<input id="formImage" accept=".jpg, .png" type="file" name="image" class="file__input">
 							<div class="file__button">Выбрать</div>
 						</div>
-						<div class="file__preview"></div>
+						<div id="formPreview" class="file__preview"></div>
 					</div>
 				</div>
 
 				<div class="form__item">
 					<div class="checkbox">
-						<input id="formAgreement" type="checkbox" name="agreement" class="checkbox__input" checked>
+						<input id="formAgreement" type="checkbox" name="agreement" class="checkbox__input _req" checked>
 						<label for="formAgreement" class="checkbox__label"><span>Я даю свое согласие на обработку персональных данных, в соответствии с <a href="#">Условиями</a> *</span></label>
 					</div>
 				</div>
