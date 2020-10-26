@@ -14,8 +14,26 @@ document.addEventListener('DOMContentLoaded', function(){ // Прослушка 
 
 		let error = formValidate(form); // переменная, в которую попадает результирующее значение из функции проверки формы
 
+		let formData = new FormData(form); // получаем все данные из полей формы
+		formData.append('image', formImage.files[0]); // добавляем в переменную изображение
+
 		if(error === 0){
-			alert('Все круто! Форма заполнена верно!');
+			form.classList.add('_sending');
+			let response = await fetch('sendmail.php', { // ожидание выполнения функий из файла sendmail.php
+				method: 'POST',
+				body: formData
+			});
+
+			if(response.ok){
+				let result = await response.json(); // файл sendmail.php возвращает json объект
+				alert(result.message); // вывод сообщения о результате выполнения
+				formPreview.innerHTML = ''; // очистка дива с превью изображения
+				form.reset(); // очистка всех полей формы
+				form.classList.remove('_sending');
+			} else {
+				alert('Send error');
+				form.classList.remove('_sending');
+			}
 		} else {
 			alert('Заполните все обязательные поля формы!');
 		}
@@ -101,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Прослушка 
 
 		reader.onload = function(e) {
 			console.log(formPreview);
-			formPreview.innerHTML = `<img src="${e.target.result}" alt="Фото">`;
+			formPreview.innerHTML = '<img src="${e.target.result}" alt="Фото">';
 		}
 
 		reader.onerror = function(e) {
