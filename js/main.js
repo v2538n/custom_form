@@ -24,18 +24,18 @@ document.addEventListener('DOMContentLoaded', function(){ // Прослушка 
 				body: formData
 			});
 
-			if(response.ok){
+			if(response.ok){ // если все ок
 				let result = await response.json(); // файл sendmail.php возвращает json объект
 				alert(result.message); // вывод сообщения о результате выполнения
 				formPreview.innerHTML = ''; // очистка дива с превью изображения
 				form.reset(); // очистка всех полей формы
-				form.classList.remove('_sending');
+				form.classList.remove('_sending'); // удаляем временный класс, который ранее добавили для отображения процесса загрузки
 			} else {
 				alert('Send error');
-				form.classList.remove('_sending');
+				form.classList.remove('_sending');  // удаляем временный класс и в случае получения ошибки тоже
 			}
 		} else {
-			alert('Заполните все обязательные поля формы!');
+			alert('Необходимо корректно заполнить все обязательные поля формы!');
 		}
 	}
 
@@ -95,37 +95,41 @@ document.addEventListener('DOMContentLoaded', function(){ // Прослушка 
 	}
 
 
-	const formImage = document.getElementById('formImage');
+	const formImage = document.getElementById('formImage'); // переменная для инпута выбора изображения
 
-	const formPreview = document.getElementById('formPreview');
+	const formPreview = document.getElementById('formPreview'); // переменная для дива, в который будет выводиться превью изображения
 
 	formImage.addEventListener('change', () => {
-		uploadFile(formImage.files[0]);
+		uploadFile(formImage.files[0]); // отслеживание изменения данных в поле инпут для загрузки картинки
 	});
 
-	function uploadFile(file){
-		if(!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)){
+	function uploadFile(file){ // функция загрузки изображения
+		if(!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)){ // проверка типа файла
 			alert('Разрешены только изображения');
 			formImage.value = '';
 			return;
 		}
 
-		if(file.size > 0.5 * 1024 * 1024){
+		if(file.size > 1 * 1024 * 1024){
 			alert('Файл должен быть меньше 1 МБ');
 			return;
 		}
 
-		var reader = new FileReader();
+/*  Объект FileReader позволяет веб-приложениям асинхронно читать содержимое файлов (или буферы данных),
+ хранящиеся на компьютере пользователя, используя объекты File или Blob, с помощью которых задается файл
+  или данные для чтения.*/
+		var reader = new FileReader(); 
 
+/*Обработчик для события load. Это событие срабатывает при каждом успешном завершении операции чтения.*/
 		reader.onload = function(e) {
-			console.log(formPreview);
-			formPreview.innerHTML = '<img src="${e.target.result}" alt="Фото">';
+			formPreview.innerHTML = '<img src="${e.target.result}" alt="Фото">'; // вставка изображения в див превью
 		}
 
-		reader.onerror = function(e) {
+		reader.onerror = function(e) { // обработчик ошибки загрузки
 			alert('Photo upload error');
 		}
-
+/*Запускает процесс чтения данных указанного Blob, по завершении, 
+аттрибут result будет содержать данные файла в виде data: URL.*/
 		reader.readAsDataURL(file);
 	}
 
