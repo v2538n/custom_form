@@ -70,7 +70,11 @@
 		$message = 'Sending Success';
 	}
 
-	$response = ['message' => $message]; // подгатавливаем переменную с информацией о выполнении отправки json объектом из php в js
+	//$response = ['message' => $message]; // подгатавливаем переменную с информацией о выполнении отправки json объектом из php в js
+
+	$response['message'] = $message;
+	//$response = array('message' => $message);
+
 
 	header('Content-type: application/json'); // указываем заголовок
 	echo json_encode($response); // отправляем
