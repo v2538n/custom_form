@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Прослушка 
 
 /*Обработчик для события load. Это событие срабатывает при каждом успешном завершении операции чтения.*/
 		reader.onload = function(e) {
-			formPreview.innerHTML = '<img src="${e.target.result}" alt="Фото">'; // вставка изображения в див превью
+			formPreview.innerHTML = `<img src="${e.target.result}" alt="Фото">`; // вставка изображения в див превью
 		}
 
 		reader.onerror = function(e) { // обработчик ошибки загрузки
